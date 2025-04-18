@@ -6,7 +6,7 @@ const router = express.Router();
 
 const authHeader = {
   Authorization:
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzQ0OTU5MDI1LCJpYXQiOjE3NDQ5NTg3MjUsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6Ijk4MzgxNWNlLTJhYWEtNDg3MC1hNDMzLWIwOTVhMDU1OGE1NCIsInN1YiI6ImdhcnZpdC5nbGFfY3MyMkBnbGEuYWMuaW4ifSwiZW1haWwiOiJnYXJ2aXQuZ2xhX2NzMjJAZ2xhLmFjLmluIiwibmFtZSI6ImdyYXZpdCIsInJvbGxObyI6IjIyMTUwMDA3MDUiLCJhY2Nlc3NDb2RlIjoiQ05uZUdUIiwiY2xpZW50SUQiOiI5ODM4MTVjZS0yYWFhLTQ4NzAtYTQzMy1iMDk1YTA1NThhNTQiLCJjbGllbnRTZWNyZXQiOiJ4QXZ6V0VUWFJ0Z0JOdmNTIn0.Cezkd4gZ-wUra0yrOiU3Y4OYdI_w_TEOyjj-7W3t9B0",
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzQ0OTYxMjcxLCJpYXQiOjE3NDQ5NjA5NzEsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6Ijk4MzgxNWNlLTJhYWEtNDg3MC1hNDMzLWIwOTVhMDU1OGE1NCIsInN1YiI6ImdhcnZpdC5nbGFfY3MyMkBnbGEuYWMuaW4ifSwiZW1haWwiOiJnYXJ2aXQuZ2xhX2NzMjJAZ2xhLmFjLmluIiwibmFtZSI6ImdyYXZpdCIsInJvbGxObyI6IjIyMTUwMDA3MDUiLCJhY2Nlc3NDb2RlIjoiQ05uZUdUIiwiY2xpZW50SUQiOiI5ODM4MTVjZS0yYWFhLTQ4NzAtYTQzMy1iMDk1YTA1NThhNTQiLCJjbGllbnRTZWNyZXQiOiJ4QXZ6V0VUWFJ0Z0JOdmNTIn0.Oo5B5tvjLu_kV690TixSicy-DaOlX4n5zsAWfVZZ4nk",
 };
 
 router.get("/", async (req, res) => {
@@ -27,10 +27,11 @@ router.get("/", async (req, res) => {
       );
     }
 
-    const topUsers = await User.find()
-      .sort({ totalComments: -1 })
-      .limit(5)
-      .select("userId name totalComments");
+    const topUsers = await User.find({
+      sort: { totalComments: -1 },
+      limit: 5,
+      select: "userId name totalComments",
+    });
 
     res.json(topUsers);
   } catch (err) {
